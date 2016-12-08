@@ -31,20 +31,16 @@ if (!isset($_SESSION)) {
         }
         foreach ($gradeArray as $grade) {
             ?>
-            <tr class='clickable-row' data-href= <?php echo "editTeam.php?id=".$grade->id; ?>>
+            <tr>
 
                 <td><?php echo $grade->examId?></td>
                 <td><?php echo $grade->studentId?></td>
                 <td><?php echo $grade->grade?></td>
-<!--                <td class="minimal_cell">-->
-<!--                    <a href="--><?php //echo 'editTeam.php?id='.$grade->id ?><!--">-->
-<!--                        <span class="glyphicon glyphicon-edit"></span>-->
-<!--                    </a>-->
-<!--                    &nbsp;-->
-<!--                    <a href="--><?php //echo 'deleteTeam.php?id=' .$grade->id?><!--">-->
-<!--                        <span class="glyphicon glyphicon-trash"></span>-->
-<!--                    </a>-->
-<!--                </td>-->
+                <td class="minimal_cell">
+                    <a href="<?php echo 'deleteGrade.php?id=' .$grade->id?>">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                </td>
             </tr>
         <?php } ?>
         </tbody>

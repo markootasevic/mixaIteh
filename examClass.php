@@ -62,6 +62,39 @@
             $ret = $result->fetch_assoc();
             return $ret['name'];
         }
+
+
+        public static function deleteExam($id)
+        {
+            include_once ('conn.php');
+//        global $mysqli;
+            $query = sprintf('DELETE FROM exam WHERE id=%s', $id);
+            if(!$result = $mysqli->query($query)) {
+                echo "Error deleting exam".$result->error;
+                exit();
+            } else {
+                Grade::deleteGrades($id);
+            }
+
+        }
+
+        public static function getOneExam ($id) {
+            include_once ('conn.php');
+            global $mysqli;
+            $query = sprintf('SELECT * FROM exam WHERE id=%s', $id);
+            if(!$result = $mysqli->query($query)) {
+                echo "Error getting 1 exam".$result->error;
+                exit();
+            } if($result == null) {
+                echo $mysqli->error;
+            }
+            $exam = $result->fetch_object();
+            $res = new Exam($exam->name, $exam->professor_id);
+            $res->id = $exam->ID;
+            return $res;
+
+
+        }
+
 	}
 
- ?>

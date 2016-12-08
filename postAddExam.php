@@ -12,7 +12,7 @@ if(isset($_POST['name'])){
         $exam = new Exam($_POST['name'], $professorId);
         $success = $exam->insertInDb();
         if($success == 1) {
-            $_SESSION['addExam'] = "You have successfully added a new grade";
+            $_SESSION['addExam'] = "You have successfully added a new exam";
             header("Location: addExam.php ");
         } else {
 //	        $_SESSION['addGrade'] = "Something went wrong, please try again";
@@ -20,7 +20,7 @@ if(isset($_POST['name'])){
             header("Location: addExam.php ");
         }
     } else {
-        echo "sranje";
+        echo "djes poso";
     }
 
 }

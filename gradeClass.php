@@ -54,11 +54,63 @@
             while($row = $result->fetch_object()) {
                 $studentName = Student::getNameById($row->student_id);
                 $examName = Exam::getNameById($row->exam_id);
-                $grade = new Grade(1,$studentName,$examName, $row->grade);
-                array_push($arrayResult, $grade);
+                if(isset($_SESSION['logedin'])){
+                    $pieces = explode("|", $_SESSION['logedin']);
+                    $professorId = $pieces[1];
+                    $grade = new Grade($professorId,$studentName,$examName, $row->grade);
+                    $grade->id = $row->id;
+                    array_push($arrayResult, $grade);
+                } else {
+                    echo "sranje";
+                    die();
+                }
+
             }
 //        $mysqli->close();
             return $arrayResult;
+        }
+
+        public static function getOneGrade ($id) {
+            include_once ('conn.php');
+            global $mysqli;
+            $query = sprintf('SELECT * FROM grade WHERE id=%s', $id);
+            if(!$result = $mysqli->query($query)) {
+                echo "Error getting 1 grade".$result->error;
+                exit();
+            } if($result == null) {
+                echo $mysqli->error;
+            }
+            $grade = $result->fetch_object();
+            $studentName = Student::getNameById($grade->student_id);
+            $examName = Exam::getNameById($grade->exam_id);
+            $res = new Grade($grade->professor_id, $studentName, $examName, $grade->grade);
+            return $res;
+
+
+        }
+
+        public static function deleteGrade($id)
+        {
+            include_once ('conn.php');
+//        global $mysqli;
+            $query = sprintf('DELETE FROM grade WHERE id=%s', $id);
+            if(!$result = $mysqli->query($query)) {
+                echo "Error deleting team".$result->error;
+                exit();
+            }
+
+        }
+
+        public static function deleteGrades($exam_id)
+        {
+            include_once ('conn.php');
+            global $mysqli;
+            $query = sprintf('DELETE FROM grade WHERE exam_id = %s', $exam_id);
+            if(!$result = $mysqli->query($query)) {
+                echo "Error deleting team".$result->error;
+                exit();
+            }
+
         }
 		
 	}

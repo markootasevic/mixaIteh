@@ -43,6 +43,7 @@ if(!isset($_SESSION))
           </ul>
         </li>
         <li><a href="allGrades.php">See all grades</a></li>
+          <li><a href="allExams.php">See all exams</a></li>
         <?php } ?>
         <?php 
         if(isset($_SESSION['logedin']) && $_SESSION['logedin'] == 'student') {
