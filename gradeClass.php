@@ -70,6 +70,36 @@
             return $arrayResult;
         }
 
+        public static function getAllGradesForStudent($id)
+        {
+            include_once 'conn.php';
+            include_once 'studentClass.php';
+            include_once 'examClass.php';
+            include_once 'professorClass.php';
+            global $mysqli;
+
+                $sql = sprintf('SELECT * FROM grade WHERE student_id = %s', $id);
+
+            if(!$result = $mysqli->query($sql)) {
+                echo "ERROR".$mysqli->errno;
+                exit();
+            }
+            $arrayResult = array();
+            while($row = $result->fetch_object()) {
+                $studentName = Student::getNameById($row->student_id);
+                $examName = Exam::getNameById($row->exam_id);
+                $professorId = Professor::getNameFromId($row->professor_id);
+                    $grade = new Grade($professorId,$studentName,$examName, $row->grade);
+                    $grade->id = $row->id;
+                    array_push($arrayResult, $grade);
+
+
+            }
+//        $mysqli->close();
+            return $arrayResult;
+        }
+
+
         public static function getOneGrade ($id) {
             include_once ('conn.php');
             global $mysqli;

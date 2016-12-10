@@ -1,7 +1,9 @@
 <?php
 
-include_once ('header.php');
-include ('gradeClass.php');
+include_once 'header.php';
+include_once 'gradeClass.php';
+include_once 'examClass.php';
+
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -13,6 +15,19 @@ if (!isset($_SESSION)) {
         <span><h3>SORT TABLE BY GRADES</h3></span>
         <h3><a href="allGrades.php?sort=asc">ascending</a></h3>
         <h3><a href="allGrades.php?sort=desc">descending</a></h3>
+        <span><h3>Filter table by exam</h3></span>
+        <?php
+        $exams = Exam::getAllExmas();
+        echo '  <select name="exam" class="form-control" id="myselect">';
+        foreach ($exams as $exam) {
+            ?>
+            <option value="<?php echo $exam->name ?>"> <?php echo $exam->name ?> </option>
+        <?php } ?>
+        </select>
+        <button onclick="filterExams()">Filter</button>
+        <button onclick="removeInlineStyle()">Remove filter</button>
+        <br>
+        <br>
     </div>
     <table class="table table-striped">
         <thead>
@@ -31,9 +46,9 @@ if (!isset($_SESSION)) {
         }
         foreach ($gradeArray as $grade) {
             ?>
-            <tr>
+            <tr class="myClass">
 
-                <td><?php echo $grade->examId?></td>
+                <td class="exam"><?php echo $grade->examId?></td>
                 <td><?php echo $grade->studentId?></td>
                 <td><?php echo $grade->grade?></td>
                 <td class="minimal_cell">
@@ -45,15 +60,34 @@ if (!isset($_SESSION)) {
         <?php } ?>
         </tbody>
     </table>
-<!--    <script type="text/javascript">-->
-<!--        jQuery(document).ready(function($) {-->
-<!--            $(".clickable-row").click(function() {-->
-<!--                window.document.location = $(this).data("href");-->
-<!--            });-->
-<!--        });-->
-<!--    </script>-->
 </div>
+<script>
+    function removeInlineStyle() {
+        $("tr.myClass").each(function(i , b) {
+            b.style.display = "";
+        });
+    }
 
+    function filterExams() {
+        name =  $( "#myselect" ).val();
+        filterExamsByName(name);
+    }
+
+    function filterExamsByName(examName) {
+        removeInlineStyle();
+        $("tr.myClass").each(function(i , b) {
+            $this = $(this);
+            a = $this.find("td.exam");
+            var value = a.html();
+            if(value != examName) {
+                b.style.display = "none";
+
+            }
+        });
+
+
+    }
+</script>
 </body>
 </html>
 

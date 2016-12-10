@@ -11,15 +11,15 @@ if(!isset($_SESSION))
 		$name = $_POST['user'];
 //		echo "ccc";
        $success = Student::logIn($_POST['user'], $_POST['pass']);
-       if($success != 1) {
+       if($success[0] != 1) {
        	$success = Professor::logIn($_POST['user'], $_POST['pass']);
        } else {
-       		$_SESSION['logedin'] = 'student';
+       		$_SESSION['logedin'] = 'student|    '. substr($success, 1);
 				header( "Location: index.php" );
                 die();
        }
 //		$sql ="SELECT pass FROM user WHERE  name = '".$name."'";
-		if ( $success[0] != '1' && $success[0] != '0' ) {	
+		if ( $success[0] != '1' && $success[0] != '0' ) {
 			header( "refresh:5 ;url=signin.php" );
             exit();
 		}

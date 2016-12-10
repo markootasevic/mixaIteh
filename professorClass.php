@@ -22,7 +22,7 @@
         $query = sprintf('INSERT INTO professor (name,pass) VALUES ("%s","%s")', $this->name, $this->pass);
 
         if ($mysqli->query($query)) {
-	        return 1;
+	        return "professor|" . $mysqli->insert_id;
 
         } else {
 //            $mysqli->close();
@@ -51,6 +51,22 @@
             }
           }
           return 0;
+        }
+
+        public static function getNameFromId($id)
+        {
+            include_once ('conn.php');
+            global $mysqli;
+            $query = sprintf('SELECT name FROM professor WHERE  id = "%s"', $id);
+            if ( ! $result = $mysqli->query( $query ) ) {
+                return "There was an db error, try again". $mysqli->error;
+
+                //      header( "refresh:5 ;url=signin.php" );
+            }
+            if ( $result->num_rows == 1 ) {
+                return $result->fetch_object()->name;
+            }
+            return 0;
         }
     }
 

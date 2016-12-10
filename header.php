@@ -18,7 +18,7 @@ if(!isset($_SESSION))
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -46,15 +46,15 @@ if(!isset($_SESSION))
           <li><a href="allExams.php">See all exams</a></li>
         <?php } ?>
         <?php 
-        if(isset($_SESSION['logedin']) && $_SESSION['logedin'] == 'student') {
+        if(isset($_SESSION['logedin']) && strpos($_SESSION['logedin'], 'student') !== false) {
  ?>
-        <li><a href="allTeams.php">See all grades</a></li>
+        <li><a href="allStudentGrades.php">See all grades</a></li>
 
         <li><a href="#"></a></li>
         <?php } ?>
       </ul>
 	    <ul class="nav navbar-nav navbar-right">
-	      <?php if (isset($_SESSION['logedin']) && (strpos($_SESSION['logedin'], 'professor') !== false   || $_SESSION['logedin'] == 'student')) { ?>
+	      <?php if (isset($_SESSION['logedin']) && (strpos($_SESSION['logedin'], 'professor') !== false   || strpos($_SESSION['logedin'], 'student') !== false)) { ?>
 	      <li><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 	      <?php } else {?>
         <li><a href="signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>

@@ -21,7 +21,7 @@
       $query = sprintf('INSERT INTO student (name,pass) VALUES ("%s","%s")', $this->name, $this->pass);
 
       if ($mysqli->query($query)) {
-        return 1;
+        return "student|" . $mysqli->insert_id;
 
       } else {
 //            $mysqli->close();
@@ -44,7 +44,7 @@
           $resultObj = $result->fetch_object();
           if ( $resultObj->pass == $pass ) {
   //            $mysqli->close();
-              return 1;
+              return 1 . $resultObj->ID;
           } else {
   //            $mysqli->close();
               return 0;
