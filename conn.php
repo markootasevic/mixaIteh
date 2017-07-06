@@ -2,7 +2,7 @@
 global $mysqli;
 $server = "localhost";
 $user = "root";
-$password = "";
+$password = "admin1234";
 $database = "mixaIteh";
  $mysqli= new mysqli($server, $user, $password, $database);
 if ($mysqli->connect_errno) {

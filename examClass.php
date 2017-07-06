@@ -32,8 +32,14 @@
 
              public static function getAllExmas()
             {
-            include_once 'conn.php';
-            // global $mysqli;
+                if (!isset($mysqli)) {
+                    include_once 'conn.php';
+                    global $mysqli;
+                } else {
+                    global $mysqli;
+                }
+
+
             $sql = "SELECT * FROM exam";
             if(!$result = $mysqli->query($sql)) {
                 echo "ERROR".$mysqli->errno;
@@ -95,6 +101,32 @@
 
 
         }
+
+        public static function getExamsICanApplyFor($examPeriodId)
+        {
+            if (!isset($mysqli)) {
+                include_once 'conn.php';
+                global $mysqli;
+
+            } else {
+                global $mysqli;
+            }
+            $sql = sprintf('SELECT e.name, e.professor_id, e.ID FROM exam e JOIN exam_period_exam ep ON (e.ID = ep.exam_id) WHERE ep.exam_period_id = %s', $examPeriodId);
+            if(!$result = $mysqli->query($sql)) {
+                echo "ERROR".$mysqli->errno;
+                exit();
+            }
+            $arrayResult = array();
+            while($row = $result->fetch_object()) {
+                $exam = new Exam($row->name, $row->professor_id);
+                $exam->id = $row->ID;
+                array_push($arrayResult, $exam);
+            }
+//                $mysqli->close();
+//        unset($mysqli);
+            return $arrayResult;
+        }
+
 
 	}
 

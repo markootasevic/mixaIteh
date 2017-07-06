@@ -40,17 +40,18 @@ if(!isset($_SESSION))
           <ul class="dropdown-menu">
             <li><a href="addGrade.php">Grade</a></li>
             <li><a href="addExam.php">Exam</a></li>
+            <li><a href="addExamPeriod.php">Exam period</a></li>
+            <li><a href="addExamsForPeriod.php">Exams to period</a></li>
           </ul>
         </li>
         <li><a href="allGrades.php">See all grades</a></li>
-          <li><a href="allExams.php">See all exams</a></li>
         <?php } ?>
         <?php 
         if(isset($_SESSION['logedin']) && strpos($_SESSION['logedin'], 'student') !== false) {
  ?>
         <li><a href="allStudentGrades.php">See all grades</a></li>
+        <li><a href="applyForExams.php">Apply for exams</a></li>
 
-        <li><a href="#"></a></li>
         <?php } ?>
       </ul>
 	    <ul class="nav navbar-nav navbar-right">

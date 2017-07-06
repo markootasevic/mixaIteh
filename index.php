@@ -9,6 +9,7 @@ if(isset($_SESSION['logedin']) &&  strpos($_SESSION['logedin'], 'professor') !==
     <a href="allGrades.php">See all grades</a>
     <br>
     <a href="allExams.php">See all exams</a>
+    
 
 <?php }
 if(isset($_SESSION['logedin']) && strpos($_SESSION['logedin'], 'student') !== false) { ?>
