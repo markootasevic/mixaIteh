@@ -23,7 +23,9 @@ if (isset($_SESSION['addExamsForPeriod'])) {
             global $exam;
             $exam = ExamPeriod::getCurrentExamPeriod();
             echo $exam->name;
+            echo '<input type="hidden" name="examPeriod" value="'. $exam->id .'">';
             ?></h3>
+        <input type="hidden" name="date" value="<?php echo date("m.d.Y"); ?>">
         <br>
 
         <?php
@@ -40,7 +42,7 @@ if (isset($_SESSION['addExamsForPeriod'])) {
 
         <br>
         
-        <button type="submit" class="btn btn-primary">Add exams for exams period</button>
+        <button class="btn btn-primary">Add exams for exams period</button>
 
     </form>
 

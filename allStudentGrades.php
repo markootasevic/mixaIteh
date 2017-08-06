@@ -10,6 +10,16 @@ if (!isset($_SESSION)) {
 
 <div class="container">
 
+    <div class="form-group">
+        <label for="sel1">Filter:</label>
+        <select class="form-control" id="gradeFilter">
+            <option value="2">Svi</option>
+            <option value="1">Polozeni</option>
+            <option value="0">Nepolozeni</option>
+        </select>
+        <button onclick="applyFilter()" class="btn btn-primary">Primeni filter</button>
+    </div>
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -18,9 +28,10 @@ if (!isset($_SESSION)) {
             <th>Grade</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="gradeTable">
         <?php
         if(isset($_SESSION['logedin'])) {
+            global $student;
             $pieces = explode("|", $_SESSION['logedin']);
             $student = $pieces[1];
             $gradeArray = Grade::getAllGradesForStudent($student);
@@ -41,6 +52,30 @@ if (!isset($_SESSION)) {
         </tbody>
     </table>
 </div>
+
+<script>
+    function applyFilter() {
+        var opt = $('#gradeFilter').val();
+        var filter = "";
+        if(opt == 1) {
+            filter = "AND grade > 5";
+        }
+        if(opt == 0) {
+            filter = "AND grade = 5";
+        }
+        var studentId = <?php echo $student; ?>;
+        $.ajax({
+            method: "POST",
+            url: "postFilterAllGrades.php",
+            data:'student_id=' + studentId + '&filter=' + filter,
+            success: function(result){
+            $("#gradeTable").html(result);
+        }});
+
+    }
+
+</script>
+
 </body>
 </html>
 

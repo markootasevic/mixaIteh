@@ -50,7 +50,7 @@ if(!isset($_SESSION))
         if(isset($_SESSION['logedin']) && strpos($_SESSION['logedin'], 'student') !== false) {
  ?>
         <li><a href="allStudentGrades.php">See all grades</a></li>
-        <li><a href="applyForExams.php">Apply for exams</a></li>
+<!--        <li><a href="applyForExams.php">Apply for exams</a></li>-->
 
         <?php } ?>
       </ul>

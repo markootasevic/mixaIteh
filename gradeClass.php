@@ -70,7 +70,7 @@
             return $arrayResult;
         }
 
-        public static function getAllGradesForStudent($id)
+        public static function getAllGradesForStudent($id, $filter = "")
         {
             include_once 'conn.php';
             include_once 'studentClass.php';
@@ -78,7 +78,7 @@
             include_once 'professorClass.php';
             global $mysqli;
 
-                $sql = sprintf('SELECT * FROM grade WHERE student_id = %s', $id);
+                $sql = sprintf('SELECT * FROM grade WHERE student_id = %s %s', $id, $filter);
 
             if(!$result = $mysqli->query($sql)) {
                 echo "ERROR".$mysqli->errno;
