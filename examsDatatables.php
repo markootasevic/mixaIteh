@@ -20,7 +20,13 @@ if ($searchValue != null) {
     $sql = $sql . 'WHERE name LIKE "%' . $searchValue . '%"';
 
 }
-
+if ($length != -1) {
+    $sql = $sql . 'LIMIT '.$start.', '.$length;
+//    $builder->limit($length, $start);
+} else {
+    $sql = $sql . 'LIMIT '.$resultTotalCount.', '.$start;
+//    $builder->limit($resultTotal, $start);
+}
 
 if (!$result = $mysqli->query($sql)) {
     exit();

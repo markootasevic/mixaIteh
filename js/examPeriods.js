@@ -16,6 +16,9 @@ $(document).ready(function () {
             [10, 25, 50, 100],
             [10, 25, 50, 100]
         ],
+        oLanguage: {
+            sUrl: "data/EnglishExamPeriods.json"
+        },
         ajax: {
             url: 'examsDatatables.php',
             headers: {

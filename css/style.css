@@ -602,3 +602,7 @@ a.action-button:hover {
     -webkit-box-align: center;
     align-items: center;
 }
+
+#piechart_3d {
+    margin-left: 27%;
+}

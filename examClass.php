@@ -127,6 +127,59 @@
             return $arrayResult;
         }
 
+        public static function getTotalExamCount($examId)
+        {
+            if (!isset($mysqli)) {
+                include_once 'conn.php';
+                global $mysqli;
+
+            } else {
+                global $mysqli;
+            }
+            $sql = "";
+            $sql = sprintf("SELECT COUNT(*) as num FROM `grade` WHERE exam_id = %s ", $examId);
+
+            if(!$result = $mysqli->query($sql)) {
+                echo "ERROR".$mysqli->errno;
+                exit();
+            }
+            $arrayResult = array();
+            $count = 0;
+            if($row = $result->fetch_object()) {
+                $count = $row->num;
+            }
+            return $count;
+        }
+
+
+        public static function getExamStatistics($examId) {
+            if (!isset($mysqli)) {
+                include_once 'conn.php';
+                global $mysqli;
+
+            } else {
+                global $mysqli;
+            }
+            $sql = "";
+                $sql = sprintf("SELECT COUNT(*) as num FROM `grade` WHERE exam_id = %s AND grade = 5", $examId);
+
+            if(!$result = $mysqli->query($sql)) {
+                echo "ERROR".$mysqli->errno;
+                exit();
+            }
+            $arrayResult = array();
+            if($row = $result->fetch_object()) {
+                $count = $row->num;
+            }
+            $totalGrades = self::getTotalExamCount($examId);
+            $arrayResult['fail'] = (int)$count;
+            $arrayResult['pass'] = (int)$totalGrades - (int)$count;
+
+//                $mysqli->close();
+//        unset($mysqli);
+            return $arrayResult;
+        }
+
 
 	}
 

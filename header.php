@@ -47,7 +47,8 @@ if(!isset($_SESSION))
           </ul>
         </li>
           <li><a href="allGrades.php">See all grades</a></li>
-          <li><a href="all.php">See all exam periods</a></li>
+          <li><a href="allExamPeriods.php">See all exam periods</a></li>
+          <li><a href="examGraph.php">Charts</a></li>
         <?php } ?>
         <?php 
         if(isset($_SESSION['logedin']) && strpos($_SESSION['logedin'], 'student') !== false) {
